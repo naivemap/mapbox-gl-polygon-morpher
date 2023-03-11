@@ -6,6 +6,7 @@
 
 ## Packages
 
-| Package                                     | Description |
-| ------------------------------------------- | ----------- |
-| [vite-lib-template](./vite-lib-template.md) |             |
+|  Package | Description |
+|  --- | --- |
+|  [@naivemap/mapbox-gl-polygon-morpher](./mapbox-gl-polygon-morpher.md) | Morph smoothly between Polygons or MultiPolygons. |
+

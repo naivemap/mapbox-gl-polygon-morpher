@@ -6,13 +6,81 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   </head>
   <body>
+    <div id="map" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0"></div>
+
     <script src="./dist/index.umd.js"></script>
     <script type="module">
-      import { add } from './dist/index.js'
+      import mapboxgl from 'mapbox-gl'
+      import 'mapbox-gl/dist/mapbox-gl.css'
+      // import PolygonMorpher from './dist'
 
-      console.log(add(1, 2))
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiaHVhbmdsaWkiLCJhIjoiY2wwM2E4a2drMDVrZjNrcGRucHIxOHo0cyJ9.0ecG5KGQE6R-SmhxvLvhHg'
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/huanglii/ckqt08oxg1kcc18ub9vowurqd?optimize=true',
+        hash: true,
+        center: [-73.950543, 40.7611],
+        zoom: 11
+      })
 
-      console.log(MyLib.add(3, 4))
+      const buildGeoJSONDistricts = (results) => {
+        return results.map((row, i) => {
+          return {
+            type: 'Feature',
+            geometry: JSON.parse(row.boundary_simple)
+          }
+        })
+      }
+
+      map.on('load', () => {
+        map.addSource('geojson-source', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: []
+          }
+        })
+
+        map.addLayer(
+          {
+            id: 'poly-layer',
+            type: 'fill',
+            source: 'geojson-source',
+            paint: {
+              'fill-color': 'rgba(152, 224, 173, 0.5)'
+            }
+          },
+          'aeroway-line'
+        )
+        map.addLayer({
+          id: 'line-layer',
+          type: 'line',
+          source: 'geojson-source',
+          paint: {
+            'line-width': 2,
+            'line-color': 'rgba(255, 178, 125, 1)'
+          }
+        })
+
+        const geojsonSource = map.getSource('geojson-source')
+        const polygonMorpher = new PolygonMorpher(geojsonSource, {
+          // maxDuration: 100
+        })
+
+        fetch(
+          'https://us-congress-districts.api.aclu.org/pip?min_session=86&lat=40.7306&lng=-73.9866'
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            const features = buildGeoJSONDistricts(data.results)
+
+            polygonMorpher.morph(features[1])
+            setTimeout(() => {
+              polygonMorpher.morph(features[2])
+            }, 1000)
+          })
+      })
     </script>
   </body>
 </html>
