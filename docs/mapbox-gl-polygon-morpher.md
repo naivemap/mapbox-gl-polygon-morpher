@@ -10,7 +10,7 @@ Morph smoothly between Polygons or MultiPolygons.
 
 |  Class | Description |
 |  --- | --- |
-|  [PolygonMorpher](./mapbox-gl-polygon-morpher.polygonmorpher.md) |  |
+|  [PolygonMorpher](./mapbox-gl-polygon-morpher.polygonmorpher.md) | Morph smoothly between Polygons or MultiPolygons. |
 
 ## Interfaces
 

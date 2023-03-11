@@ -4,6 +4,8 @@
 
 ## PolygonMorpher class
 
+Morph smoothly between Polygons or MultiPolygons.
+
 **Signature:**
 
 ```typescript

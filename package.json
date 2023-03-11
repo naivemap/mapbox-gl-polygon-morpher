@@ -1,11 +1,10 @@
 {
   "name": "@naivemap/mapbox-gl-polygon-morpher",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0",
   "description": "Morph smoothly between Polygons or MultiPolygons",
   "repository": "https://github.com/naivemap/mapbox-gl-polygon-morpher",
   "publishConfig": {
-    "access": "public",
-    "tag": "alpha"
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/naivemap/mapbox-gl-polygon-morpher/issues"

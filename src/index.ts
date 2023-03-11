@@ -19,6 +19,9 @@ export interface MorphOption {
   maxDuration?: number
 }
 
+/**
+ * Morph smoothly between Polygons or MultiPolygons.
+ */
 export default class PolygonMorpher {
   private source: mapboxgl.GeoJSONSource
   private sourceLoaded = false
